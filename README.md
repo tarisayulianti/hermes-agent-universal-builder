@@ -214,6 +214,36 @@ See `hermes claw migrate --help` for all options, or use the `openclaw-migration
 
 ---
 
+## Universal Multi-Agent Builder
+
+Hermes can now operate as a **Universal Multi-Agent Builder**: give it a product or feature request, and it runs a structured pipeline that turns the request into production-ready code and ships it to GitHub.
+
+### What it does
+
+- **Recommender** — generates 3 implementation options and selects the best one
+- **Roadmap** — defines phases, milestones, and dependencies
+- **Architect** — designs technical architecture, stack, and integration contracts
+- **Planner** — produces the complete file structure and function specs
+- **Builder** — writes real, complete, publish-ready code
+- **Verifier** — validates syntax, logic, and behavior
+- **Auditor** — reviews security, performance, and quality
+- **GitHub Agent** — commits and pushes the finished codebase
+
+### Usage
+
+```bash
+hermes build "Build a todo API with FastAPI and SQLite"
+hermes build --auto "Add Telegram bot integration"
+hermes build --resume "Build a todo API with FastAPI and SQLite"
+hermes build --repo ./my-project "Build a todo API with FastAPI and SQLite"
+```
+
+### State
+
+Pipeline state is persisted between runs. Use `--resume` to continue an interrupted build, or inspect the saved state in `~/.hermes/multi_agent_builder/state/`.
+
+---
+
 ## Contributing
 
 We welcome contributions! See the [Contributing Guide](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing) for development setup, code style, and PR process.
