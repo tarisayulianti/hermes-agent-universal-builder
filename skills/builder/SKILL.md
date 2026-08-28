@@ -134,6 +134,32 @@ terminal(command="git remote add origin <repo_url>", workdir=<project_dir>)
 terminal(command="git push -u origin main", workdir=<project_dir>)
 ```
 
+## Runtime Wiring Contract
+
+This pipeline is designed to run from within an active Hermes agent turn.
+`delegate_task` is a Hermes tool; it is not importable from ordinary helper modules.
+Do not attempt to import or call `delegate_task` from `multi_agent_builder` code.
+
+### Intended live invocation
+
+From an active agent session, bind the real tool callables into `RuntimeBindings`
+and pass that object into `run_pipeline_live(...)`. The helper module only consumes
+the injected bindings; it never imports the live runtime itself.
+
+```python
+from multi_agent_builder.runtime_executor import run_pipeline_live
+from multi_agent_builder.runtime import RuntimeBindings
+
+bindings = RuntimeBindings(
+    delegate_task=lambda goal, context=None, role="leaf": delegate_task(
+        goal=goal,
+        context=context,
+        role=role,
+    ),
+)
+state = run_pipeline_live("build a todo API", bindings)
+```
+
 ## State Management
 After each stage, update `~/.hermes/multi_agent_builder/state/{hash}.json`:
 ```python
