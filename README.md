@@ -165,6 +165,27 @@ hermes build --repo ./my-project "Build a todo API with FastAPI and SQLite"
 
 Pipeline state is persisted between runs. Use `--resume` to continue an interrupted build, or inspect the saved state in `~/.hermes/multi_agent_builder/state/`.
 
+### Termux Setup
+
+On Termux, install the builder stack and run the pipeline:
+
+```bash
+# Install dependencies
+pkg update && pkg install python nodejs git curl
+
+# Clone repo
+git clone https://github.com/tarisayulianti/hermes-agent-universal-builder.git
+cd hermes-agent-universal-builder
+
+# Install Python deps
+pip install -r requirements/builder.txt
+
+# Run builder
+python -m multi_agent_builder.cli build "Build a todo API with FastAPI and SQLite"
+```
+
+> Note: On Termux, use `python -m multi_agent_builder.cli` instead of `hermes build` unless Hermes CLI is installed and on PATH.
+
 ---
 
 ## CLI vs Messaging Quick Reference
